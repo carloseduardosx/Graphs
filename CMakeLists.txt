@@ -12,6 +12,8 @@ set(SOURCE_FILES
         src/model/impl/Corner.cpp
         src/model/Corner.h
         src/model/impl/Adjacency.cpp
-        src/model/Adjacency.h)
+        src/model/Adjacency.h
+        src/controller/impl/GraphController.cpp
+        src/controller/GraphController.h)
 
 add_executable(Graphs ${SOURCE_FILES})

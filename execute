@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+g++ -std=c++11 src/main.cpp \
+        src/model/impl/Adjacency.cpp \
+        src/model/impl/Corner.cpp \
+        src/model/impl/Graph.cpp \
+        src/model/impl/Vertex.cpp \
+        src/controller/impl/GraphController.cpp \
+-o graph && ./graph
