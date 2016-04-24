@@ -8,7 +8,8 @@ void GraphController::printOptions() {
     cout << firstOption << endl;
     cout << secondOption << endl;
     cout << thirdOption << endl;
-    cout << fourthOption << endl << endl;
+    cout << fourthOption << endl;
+    cout << fifthOption << endl << endl;
     cout << selectOption;
 
     executeAction(getConsoleLine());
@@ -22,7 +23,7 @@ string GraphController::getConsoleLine() {
     return option;
 }
 
-int GraphController::treatOptionSelect(string option) {
+int GraphController::treatInput(string option) {
 
     try {
         return stoi(option);
@@ -39,36 +40,81 @@ void GraphController::cleanConsole() {
 
 void GraphController::executeAction(string option) {
 
-    const int parsedOption = treatOptionSelect(option);
+    const int parsedOption = treatInput(option);
 
     const int firstOption = 1;
     const int secondOption = 2;
     const int thirdOption = 3;
     const int fourthOption = 4;
+    const int fifthOption = 5;
 
     cleanConsole();
 
     switch (parsedOption) {
 
-        case firstOption:
-            cout << "First option selected!" << endl;
-            break;
+        case firstOption: {
 
-        case secondOption:
-            cout << "Second option selected!" << endl;
-            break;
+            cout << "Type a value to the vertex: ";
 
-        case thirdOption:
-            cout << "Third option selected!" << endl;
-            break;
+            int value = treatInput(getConsoleLine());
 
-        case fourthOption:
+            if (isNotValidValue(value)) {
+                cout << "Cannot assign de value to the vertex!";
+                break;
+            }
+
+            graph->createVertex(value);
+            break;
+        }
+
+        case secondOption: {
+
+            cout << "Write what vertexes should be connected: " << endl;
+
+            int firstValue = treatInput(getConsoleLine());
+            int secondValue = treatInput(getConsoleLine());
+
+            if (isNotValidValue(firstValue) || isNotValidValue(secondOption)) {
+                cout << "Cannot create that connection, because one or both of values are invalids!";
+                break;
+            }
+
+            graph->createCorner(firstValue, secondValue);
+            break;
+        }
+
+        case thirdOption: {
+            graph->showVertexes();
+            break;
+        }
+
+        case fourthOption: {
+
+            vector<Vertex*> vertexes = graph->getVertexes();
+
+            for (vector<Vertex*>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
+                Vertex *vertex = *it;
+                vertex->showAdjacencies();
+            }
+            break;
+        }
+
+        case fifthOption: {
             exit(success_status);
+        }
 
-        default:
+        default: {
             cout << "Invalid option selected!" << endl;
             break;
+        }
     }
 
     printOptions();
 }
+
+bool GraphController::isNotValidValue(int value) {
+
+    return value == invalid_option;
+}
+
+

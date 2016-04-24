@@ -2,6 +2,7 @@
 #define GRAPHS_GRAPHCONTROLLER_H
 
 #include <iostream>
+#include "../model/Graph.h"
 
 using namespace std;
 
@@ -15,17 +16,21 @@ private:
     string project = "Graphs";
     string firstOption = "1- Insert Vertex";
     string secondOption = "2- Create Corner";
-    string thirdOption = "3- Show Graph";
-    string fourthOption = "4- Exit";
+    string thirdOption = "3- Show Vertexes";
+    string fourthOption = "4- Show adjacency lists";
+    string fifthOption = "5- Exit";
     string selectOption = "Select a option: ";
+    Graph *graph = new Graph();
 
     string getConsoleLine();
 
-    int treatOptionSelect(string option);
+    int treatInput(string option);
 
     void executeAction(string option);
 
     void cleanConsole();
+
+    bool isNotValidValue(int value);
 
 public:
 

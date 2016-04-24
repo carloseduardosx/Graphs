@@ -20,7 +20,6 @@ public:
     Corner *getCorner();
 
     void setCorner(Corner *corner);
-
 };
 
 #endif

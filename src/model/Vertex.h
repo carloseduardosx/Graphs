@@ -3,17 +3,16 @@
 
 #include <iostream>
 #include <vector>
+#include "Adjacency.h"
 
 using namespace std;
 
-class Adjacency;
 class Vertex {
 
 private:
 
     int value;
     vector<Adjacency*> adjacencies;
-    vector<Adjacency*>::iterator iterator;
 
 public:
 
@@ -24,6 +23,8 @@ public:
     vector<Adjacency*> getAdjacencies();
 
     void addAdjacency(Adjacency *adjacency);
+
+    void showAdjacencies();
 };
 
 #endif

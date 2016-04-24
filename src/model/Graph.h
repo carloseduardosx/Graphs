@@ -3,16 +3,18 @@
 
 #include <iostream>
 #include <vector>
+#include "Vertex.h"
+#include "Adjacency.h"
 
 using namespace std;
 
-class Vertex;
 class Graph {
 
 private:
 
     vector<Vertex*> vertexes;
-    vector<Vertex*>::iterator iterator;
+
+    Vertex* searchVertex(int value);
 
 public:
 
@@ -20,6 +22,11 @@ public:
 
     void addVertex(Vertex *vertex);
 
+    void createVertex(int value);
+
+    void createCorner(int firstValue, int secondValue);
+
+    void showVertexes();
 };
 
 #endif
