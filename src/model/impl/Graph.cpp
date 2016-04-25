@@ -77,6 +77,43 @@ void Graph::createCycleCorner(int value) {
     }
 }
 
+void Graph::createConvergentCorner(int from, int to) {
+
+    vector<Vertex *> fromVertexes = searchVertex(from);
+    vector<Vertex *> toVertexes = searchVertex(to);
+
+    if (fromVertexes.empty() || toVertexes.empty()) {
+        cout << "One or both vertexes not found, the corner cannot be created!" << endl;
+        return;
+    }
+
+    if (fromVertexes.size() == 1 && toVertexes.size() == 1) {
+
+        Vertex *fromVertex = fromVertexes.front();
+        Vertex *toVertex = toVertexes.front();
+
+        fromVertex->createConvergentAdjacency(toVertex);
+    } else {
+
+        for (vector<Vertex *>::iterator it = fromVertexes.begin(); it != fromVertexes.end(); it++) {
+
+            Vertex *fromVertex = *it;
+
+            for (vector<Vertex *>::iterator secondIt = toVertexes.begin(); secondIt != toVertexes.end(); secondIt++) {
+
+                Vertex *toVertex = *secondIt;
+
+                fromVertex->createConvergentAdjacency(toVertex);
+            }
+        }
+    }
+}
+
+void Graph::createDivergentCorner(int from, int to) {
+
+    createConvergentCorner(to, from);
+}
+
 void Graph::showVertexes() {
 
     vector<Vertex *> vertexes = getVertexes();
@@ -148,7 +185,7 @@ void Graph::depthFirstSearch(Vertex *vertex) {
 
         Adjacency *adjacency = *it;
 
-        Vertex *nextVertex = adjacency->getNext();
+        Vertex *nextVertex = adjacency->getCorner()->getConvergent();
 
         if (!nextVertex->getVisited()) {
             depthFirstSearch(nextVertex);
@@ -175,7 +212,7 @@ void Graph::breadthFirstSearch(Vertex *vertex) {
         for (vector<Adjacency *>::iterator it = adjacencies.begin(); it != adjacencies.end(); it++) {
 
             Adjacency *adjacency = *it;
-            Vertex *nextVertex = adjacency->getNext();
+            Vertex *nextVertex = adjacency->getCorner()->getConvergent();
 
             if (!nextVertex->getVisited()) {
 

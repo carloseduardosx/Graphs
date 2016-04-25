@@ -12,7 +12,9 @@ void GraphController::printOptions() {
     cout << fifthOption << endl;
     cout << sixthOption << endl;
     cout << seventhOption << endl;
-    cout << eightOption << endl << endl;
+    cout << eightOption << endl;
+    cout << ninthOption << endl;
+    cout << tenthOption << endl << endl;
     cout << selectOption;
 
     executeAction(getConsoleLine());
@@ -53,6 +55,8 @@ void GraphController::executeAction(string option) {
     const int sixthOption = 6;
     const int seventhOption = 7;
     const int eightOption = 8;
+    const int ninthOption = 9;
+    const int tenthOption = 10;
 
     cleanConsole();
 
@@ -68,7 +72,6 @@ void GraphController::executeAction(string option) {
                 cout << "Cannot assign de value to the vertex!";
                 break;
             }
-
             graph->createVertex(value);
             break;
         }
@@ -84,7 +87,6 @@ void GraphController::executeAction(string option) {
                 cout << "Cannot create that connection, because one or both of values are invalids!";
                 break;
             }
-
             graph->createCorner(firstValue, secondValue);
             break;
         }
@@ -99,17 +101,47 @@ void GraphController::executeAction(string option) {
                 cout << "Cannot create that cycle, because the value are invalid!";
                 break;
             }
-
             graph->createCycleCorner(value);
             break;
         }
 
         case fourthOption: {
-            graph->showVertexes();
+
+            cout << "Adding convergent corner:" << endl;
+            cout << "From: ";
+            int from = treatInput(getConsoleLine());
+            cout << "To: ";
+            int to = treatInput(getConsoleLine());
+
+            if (isNotValidValue(from) || isNotValidValue(to)) {
+                cout << "Cannot create that connection, because one or both of values are invalids!";
+                break;
+            }
+            graph->createConvergentCorner(from, to);
             break;
         }
 
         case fifthOption: {
+            cout << "Adding divergent corner:" << endl;
+            cout << "From: ";
+            int from = treatInput(getConsoleLine());
+            cout << "To: ";
+            int to = treatInput(getConsoleLine());
+
+            if (isNotValidValue(from) || isNotValidValue(to)) {
+                cout << "Cannot create that connection, because one or both of values are invalids!";
+                break;
+            }
+            graph->createDivergentCorner(from, to);
+            break;
+        }
+
+        case sixthOption: {
+            graph->showVertexes();
+            break;
+        }
+
+        case seventhOption: {
 
             vector<Vertex *> vertexes = graph->getVertexes();
 
@@ -120,17 +152,17 @@ void GraphController::executeAction(string option) {
             break;
         }
 
-        case sixthOption: {
+        case eightOption: {
             graph->search(graph->DEPTH);
             break;
         }
 
-        case seventhOption: {
+        case ninthOption: {
             graph->search(graph->BREADTH);
             break;
         }
 
-        case eightOption: {
+        case tenthOption: {
             exit(success_status);
         }
 

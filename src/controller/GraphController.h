@@ -17,11 +17,13 @@ private:
     string firstOption = "1- Insert Vertex";
     string secondOption = "2- Create Corner";
     string thirdOption = "3- Create Cycle Corner";
-    string fourthOption = "4- Show Vertexes";
-    string fifthOption = "5- Show adjacency lists";
-    string sixthOption = "6- Depth-First Search";
-    string seventhOption = "7- Breadth-First Search";
-    string eightOption = "8- Exit";
+    string fourthOption = "4- Create Convergent Corner";
+    string fifthOption = "5- Create Divergent Corner";
+    string sixthOption = "6- Show Vertexes";
+    string seventhOption = "7- Show adjacency lists";
+    string eightOption = "8- Depth-First Search";
+    string ninthOption = "9- Breadth-First Search";
+    string tenthOption = "10- Exit";
     string selectOption = "Select a option: ";
     Graph *graph = new Graph();
 

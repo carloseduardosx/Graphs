@@ -32,6 +32,10 @@ public:
 
     void createCycleCorner(int value);
 
+    void createConvergentCorner(int from, int to);
+
+    void createDivergentCorner(int from, int to);
+
     void showVertexes();
 
     void search(SearchType searchType);

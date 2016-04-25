@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "Adjacency.h"
+#include "Corner.h"
 
 using namespace std;
 
@@ -30,6 +31,8 @@ public:
     void addAdjacency(Adjacency *adjacency);
 
     void createAdjacency(Vertex *next);
+
+    void createConvergentAdjacency(Vertex *toVertex);
 
     void showAdjacencies();
 };

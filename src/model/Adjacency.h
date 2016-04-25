@@ -10,14 +10,9 @@ class Adjacency {
 
 private:
 
-    Vertex *next;
     Corner *corner;
 
 public:
-
-    Vertex *getNext();
-
-    void setNext(Vertex *next);
 
     Corner *getCorner();
 

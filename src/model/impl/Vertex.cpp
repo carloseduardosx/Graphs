@@ -17,9 +17,23 @@ vector<Adjacency *> Vertex::getAdjacencies() {
 
 void Vertex::createAdjacency(Vertex *next) {
 
+    Corner *corner = new Corner();
     Adjacency *adjacency = new Adjacency();
-    adjacency->setNext(next);
 
+    corner->setDivergent(next);
+    corner->setConvergent(next);
+    adjacency->setCorner(corner);
+    addAdjacency(adjacency);
+}
+
+void Vertex::createConvergentAdjacency(Vertex *toVertex) {
+
+    Corner *corner = new Corner();
+    Adjacency *adjacency = new Adjacency();
+
+    corner->setDivergent(nullptr);
+    corner->setConvergent(toVertex);
+    adjacency->setCorner(corner);
     addAdjacency(adjacency);
 }
 
@@ -37,7 +51,7 @@ void Vertex::showAdjacencies() {
 
         Adjacency *adjacency = *it;
 
-        cout << " -> " << adjacency->getNext()->getValue();
+        cout << " -> " << adjacency->getCorner()->getConvergent()->getValue();
     }
 
     cout << endl;
