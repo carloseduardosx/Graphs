@@ -14,7 +14,7 @@ private:
 
     vector<Vertex *> vertexes;
 
-    Vertex *searchVertex(int value);
+    vector<Vertex *> searchVertex(int value);
 
 public:
 
