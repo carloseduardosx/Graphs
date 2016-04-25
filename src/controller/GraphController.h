@@ -18,7 +18,9 @@ private:
     string secondOption = "2- Create Corner";
     string thirdOption = "3- Show Vertexes";
     string fourthOption = "4- Show adjacency lists";
-    string fifthOption = "5- Exit";
+    string fifthOption = "5- Depth-First Search";
+    string sixthOption = "6- Breadth-First Search";
+    string seventhOption = "7- Exit";
     string selectOption = "Select a option: ";
     Graph *graph = new Graph();
 

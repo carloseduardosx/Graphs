@@ -65,3 +65,86 @@ Vertex *Graph::searchVertex(int value) {
 
     return nullptr;
 }
+
+void Graph::search(SearchType searchType) {
+
+    vector<Vertex*> vertexes = getVertexes();
+
+    for (vector<Vertex*>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
+
+        Vertex *vertex = *it;
+        vertex->setVisited(false);
+    }
+
+    for (vector<Vertex*>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
+
+        Vertex *vertex = *it;
+
+        if (!vertex->getVisited()) {
+
+            switch (searchType) {
+
+                case DEPTH:
+                    depthFirstSearch(vertex);
+                    break;
+
+                case BREADTH:
+                    breadthFirstSearch(vertex);
+                    break;
+            }
+        }
+    }
+}
+
+void Graph::depthFirstSearch(Vertex *vertex) {
+
+    vertex->setVisited(true);
+    vector<Adjacency*> adjacencies = vertex->getAdjacencies();
+
+    cout << " -> " << vertex->getValue() << endl;
+
+    for (vector<Adjacency*>::iterator it = adjacencies.begin(); it != adjacencies.end(); it++) {
+
+        Adjacency *adjacency = *it;
+        Vertex* nextVertex = adjacency->getNext();
+
+        if (!nextVertex->getVisited()) {
+
+            depthFirstSearch(nextVertex);
+        }
+    }
+}
+
+void Graph::breadthFirstSearch(Vertex *vertex) {
+
+    vector<Vertex*> queue;
+
+    vertex->setVisited(true);
+
+    cout << " -> " << vertex->getValue() << endl;
+
+    queue.push_back(vertex);
+
+    while (!queue.empty()) {
+
+        Vertex* first = queue.front();
+        queue.erase(queue.begin());
+
+        vector<Adjacency*> adjacencies = first->getAdjacencies();
+
+        for (vector<Adjacency*>::iterator it = adjacencies.begin(); it != adjacencies.end(); it++) {
+
+            Adjacency *adjacency = *it;
+            Vertex* nextVertex = adjacency->getNext();
+
+            if (!nextVertex->getVisited()) {
+
+                nextVertex->setVisited(true);
+
+                cout << " -> " << nextVertex->getValue() << endl;
+
+                queue.push_back(nextVertex);
+            }
+        }
+    }
+}

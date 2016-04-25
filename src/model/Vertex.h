@@ -12,6 +12,7 @@ class Vertex {
 private:
 
     int value;
+    bool visited;
     vector<Adjacency*> adjacencies;
 
 public:
@@ -19,6 +20,10 @@ public:
     int getValue();
 
     void setValue(int value);
+
+    bool getVisited();
+
+    void setVisited(bool visited);
 
     vector<Adjacency*> getAdjacencies();
 

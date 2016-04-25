@@ -34,3 +34,11 @@ void Vertex::showAdjacencies() {
 
     cout << endl;
 }
+
+bool Vertex::getVisited() {
+    return this->visited;
+}
+
+void Vertex::setVisited(bool visited) {
+    this->visited = visited;
+}

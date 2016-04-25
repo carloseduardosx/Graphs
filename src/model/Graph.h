@@ -18,6 +18,8 @@ private:
 
 public:
 
+    enum SearchType { DEPTH, BREADTH };
+
     vector<Vertex*> getVertexes();
 
     void addVertex(Vertex *vertex);
@@ -27,6 +29,12 @@ public:
     void createCorner(int firstValue, int secondValue);
 
     void showVertexes();
+
+    void search(SearchType searchType);
+
+    void depthFirstSearch(Vertex *vertex);
+
+    void breadthFirstSearch(Vertex *vertex);
 };
 
 #endif

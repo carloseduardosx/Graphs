@@ -9,7 +9,9 @@ void GraphController::printOptions() {
     cout << secondOption << endl;
     cout << thirdOption << endl;
     cout << fourthOption << endl;
-    cout << fifthOption << endl << endl;
+    cout << fifthOption << endl;
+    cout << sixthOption << endl;
+    cout << seventhOption << endl << endl;
     cout << selectOption;
 
     executeAction(getConsoleLine());
@@ -47,6 +49,8 @@ void GraphController::executeAction(string option) {
     const int thirdOption = 3;
     const int fourthOption = 4;
     const int fifthOption = 5;
+    const int sixthOption = 6;
+    const int seventhOption = 7;
 
     cleanConsole();
 
@@ -100,6 +104,16 @@ void GraphController::executeAction(string option) {
         }
 
         case fifthOption: {
+            graph->search(graph->DEPTH);
+            break;
+        }
+
+        case sixthOption: {
+            graph->search(graph->BREADTH);
+            break;
+        }
+
+        case seventhOption: {
             exit(success_status);
         }
 
@@ -116,5 +130,3 @@ bool GraphController::isNotValidValue(int value) {
 
     return value == invalid_option;
 }
-
-
