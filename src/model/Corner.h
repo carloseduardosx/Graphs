@@ -2,6 +2,7 @@
 #define GRAPH_ALGORITHMS_CORNER_H
 
 class Vertex;
+
 class Corner {
 
 private:
@@ -16,11 +17,11 @@ public:
 
     void setWeight(int weight);
 
-    Vertex* getDivergent();
+    Vertex *getDivergent();
 
     void setDivergent(Vertex *divergent);
 
-    Vertex* getConvergent();
+    Vertex *getConvergent();
 
     void setConvergent(Vertex *convergent);
 };

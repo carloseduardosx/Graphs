@@ -10,9 +10,17 @@ void Vertex::setValue(int value) {
     this->value = value;
 }
 
-vector<Adjacency*> Vertex::getAdjacencies() {
+vector<Adjacency *> Vertex::getAdjacencies() {
 
     return this->adjacencies;
+}
+
+void Vertex::createAdjacency(Vertex *next) {
+
+    Adjacency *adjacency = new Adjacency();
+    adjacency->setNext(next);
+
+    addAdjacency(adjacency);
 }
 
 void Vertex::addAdjacency(Adjacency *adjacency) {
@@ -23,9 +31,9 @@ void Vertex::addAdjacency(Adjacency *adjacency) {
 void Vertex::showAdjacencies() {
 
     cout << "Vector: " << this->value << " => Adjacencies:";
-    vector<Adjacency*> adjacencies = getAdjacencies();
+    vector<Adjacency *> adjacencies = getAdjacencies();
 
-    for (vector<Adjacency*>::iterator it = adjacencies.begin(); it != adjacencies.end(); it++) {
+    for (vector<Adjacency *>::iterator it = adjacencies.begin(); it != adjacencies.end(); it++) {
 
         Adjacency *adjacency = *it;
 

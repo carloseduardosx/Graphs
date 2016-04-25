@@ -13,7 +13,7 @@ private:
 
     int value;
     bool visited;
-    vector<Adjacency*> adjacencies;
+    vector<Adjacency *> adjacencies;
 
 public:
 
@@ -25,9 +25,11 @@ public:
 
     void setVisited(bool visited);
 
-    vector<Adjacency*> getAdjacencies();
+    vector<Adjacency *> getAdjacencies();
 
     void addAdjacency(Adjacency *adjacency);
+
+    void createAdjacency(Vertex *next);
 
     void showAdjacencies();
 };

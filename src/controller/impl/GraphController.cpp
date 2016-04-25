@@ -11,7 +11,8 @@ void GraphController::printOptions() {
     cout << fourthOption << endl;
     cout << fifthOption << endl;
     cout << sixthOption << endl;
-    cout << seventhOption << endl << endl;
+    cout << seventhOption << endl;
+    cout << eightOption << endl << endl;
     cout << selectOption;
 
     executeAction(getConsoleLine());
@@ -51,6 +52,7 @@ void GraphController::executeAction(string option) {
     const int fifthOption = 5;
     const int sixthOption = 6;
     const int seventhOption = 7;
+    const int eightOption = 8;
 
     cleanConsole();
 
@@ -88,32 +90,47 @@ void GraphController::executeAction(string option) {
         }
 
         case thirdOption: {
-            graph->showVertexes();
+
+            cout << "Write what vertex should be created the cycle: " << endl;
+
+            int value = treatInput(getConsoleLine());
+
+            if (isNotValidValue(value)) {
+                cout << "Cannot create that cycle, because the value are invalid!";
+                break;
+            }
+
+            graph->createCycleCorner(value);
             break;
         }
 
         case fourthOption: {
+            graph->showVertexes();
+            break;
+        }
 
-            vector<Vertex*> vertexes = graph->getVertexes();
+        case fifthOption: {
 
-            for (vector<Vertex*>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
+            vector<Vertex *> vertexes = graph->getVertexes();
+
+            for (vector<Vertex *>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
                 Vertex *vertex = *it;
                 vertex->showAdjacencies();
             }
             break;
         }
 
-        case fifthOption: {
+        case sixthOption: {
             graph->search(graph->DEPTH);
             break;
         }
 
-        case sixthOption: {
+        case seventhOption: {
             graph->search(graph->BREADTH);
             break;
         }
 
-        case seventhOption: {
+        case eightOption: {
             exit(success_status);
         }
 

@@ -28,15 +28,20 @@ void Graph::createCorner(int firstValue, int secondValue) {
         return;
     }
 
-    Adjacency *adjacency = new Adjacency();
-    adjacency->setNext(secondVertex);
+    firstVertex->createAdjacency(secondVertex);
+    secondVertex->createAdjacency(firstVertex);
+}
 
-    firstVertex->addAdjacency(adjacency);
+void Graph::createCycleCorner(int value) {
 
-    adjacency = new Adjacency();
-    adjacency->setNext(firstVertex);
+    Vertex *vertex = searchVertex(value);
 
-    secondVertex->addAdjacency(adjacency);
+    if (vertex == nullptr) {
+        cout << "Vertex not found, the cycle cannot be created!" << endl;
+        return;
+    }
+
+    vertex->createAdjacency(vertex);
 }
 
 void Graph::showVertexes() {
@@ -68,15 +73,15 @@ Vertex *Graph::searchVertex(int value) {
 
 void Graph::search(SearchType searchType) {
 
-    vector<Vertex*> vertexes = getVertexes();
+    vector<Vertex *> vertexes = getVertexes();
 
-    for (vector<Vertex*>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
+    for (vector<Vertex *>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
 
         Vertex *vertex = *it;
         vertex->setVisited(false);
     }
 
-    for (vector<Vertex*>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
+    for (vector<Vertex *>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
 
         Vertex *vertex = *it;
 
@@ -99,14 +104,14 @@ void Graph::search(SearchType searchType) {
 void Graph::depthFirstSearch(Vertex *vertex) {
 
     vertex->setVisited(true);
-    vector<Adjacency*> adjacencies = vertex->getAdjacencies();
+    vector<Adjacency *> adjacencies = vertex->getAdjacencies();
 
     cout << " -> " << vertex->getValue() << endl;
 
-    for (vector<Adjacency*>::iterator it = adjacencies.begin(); it != adjacencies.end(); it++) {
+    for (vector<Adjacency *>::iterator it = adjacencies.begin(); it != adjacencies.end(); it++) {
 
         Adjacency *adjacency = *it;
-        Vertex* nextVertex = adjacency->getNext();
+        Vertex *nextVertex = adjacency->getNext();
 
         if (!nextVertex->getVisited()) {
 
@@ -117,7 +122,7 @@ void Graph::depthFirstSearch(Vertex *vertex) {
 
 void Graph::breadthFirstSearch(Vertex *vertex) {
 
-    vector<Vertex*> queue;
+    vector<Vertex *> queue;
 
     vertex->setVisited(true);
 
@@ -127,15 +132,15 @@ void Graph::breadthFirstSearch(Vertex *vertex) {
 
     while (!queue.empty()) {
 
-        Vertex* first = queue.front();
+        Vertex *first = queue.front();
         queue.erase(queue.begin());
 
-        vector<Adjacency*> adjacencies = first->getAdjacencies();
+        vector<Adjacency *> adjacencies = first->getAdjacencies();
 
-        for (vector<Adjacency*>::iterator it = adjacencies.begin(); it != adjacencies.end(); it++) {
+        for (vector<Adjacency *>::iterator it = adjacencies.begin(); it != adjacencies.end(); it++) {
 
             Adjacency *adjacency = *it;
-            Vertex* nextVertex = adjacency->getNext();
+            Vertex *nextVertex = adjacency->getNext();
 
             if (!nextVertex->getVisited()) {
 

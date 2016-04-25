@@ -16,11 +16,12 @@ private:
     string project = "Graphs";
     string firstOption = "1- Insert Vertex";
     string secondOption = "2- Create Corner";
-    string thirdOption = "3- Show Vertexes";
-    string fourthOption = "4- Show adjacency lists";
-    string fifthOption = "5- Depth-First Search";
-    string sixthOption = "6- Breadth-First Search";
-    string seventhOption = "7- Exit";
+    string thirdOption = "3- Create Cycle Corner";
+    string fourthOption = "4- Show Vertexes";
+    string fifthOption = "5- Show adjacency lists";
+    string sixthOption = "6- Depth-First Search";
+    string seventhOption = "7- Breadth-First Search";
+    string eightOption = "8- Exit";
     string selectOption = "Select a option: ";
     Graph *graph = new Graph();
 

@@ -12,21 +12,25 @@ class Graph {
 
 private:
 
-    vector<Vertex*> vertexes;
+    vector<Vertex *> vertexes;
 
-    Vertex* searchVertex(int value);
+    Vertex *searchVertex(int value);
 
 public:
 
-    enum SearchType { DEPTH, BREADTH };
+    enum SearchType {
+        DEPTH, BREADTH
+    };
 
-    vector<Vertex*> getVertexes();
+    vector<Vertex *> getVertexes();
 
     void addVertex(Vertex *vertex);
 
     void createVertex(int value);
 
     void createCorner(int firstValue, int secondValue);
+
+    void createCycleCorner(int value);
 
     void showVertexes();
 

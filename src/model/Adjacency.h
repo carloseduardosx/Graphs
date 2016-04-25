@@ -3,7 +3,9 @@
 
 
 class Vertex;
+
 class Corner;
+
 class Adjacency {
 
 private:
