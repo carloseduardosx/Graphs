@@ -179,7 +179,7 @@ void Graph::depthFirstSearch(Vertex *vertex) {
     vertex->setVisited(true);
     vector<Adjacency *> adjacencies = vertex->getAdjacencies();
 
-    cout << " -> " << vertex->getValue() << endl;
+    vertex->showGeneratorTree();
 
     for (vector<Adjacency *>::iterator it = adjacencies.begin(); it != adjacencies.end(); it++) {
 
@@ -198,7 +198,7 @@ void Graph::breadthFirstSearch(Vertex *vertex) {
     vector<Vertex *> queue;
 
     vertex->setVisited(true);
-    cout << " -> " << vertex->getValue() << endl;
+    vertex->showGeneratorTree();
     queue.push_back(vertex);
 
     while (!queue.empty()) {
@@ -217,7 +217,7 @@ void Graph::breadthFirstSearch(Vertex *vertex) {
             if (!nextVertex->getVisited()) {
 
                 nextVertex->setVisited(true);
-                cout << " -> " << nextVertex->getValue() << endl;
+                nextVertex->showGeneratorTree();
                 queue.push_back(nextVertex);
             }
         }

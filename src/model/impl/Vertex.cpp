@@ -57,6 +57,25 @@ void Vertex::showAdjacencies() {
     cout << endl;
 }
 
+void Vertex::showGeneratorTree() {
+
+    cout << "Vector: " << this->value << " => Adjacencies:";
+    vector<Adjacency *> adjacencies = getAdjacencies();
+
+    for (vector<Adjacency *>::iterator it = adjacencies.begin(); it != adjacencies.end(); it++) {
+
+        Adjacency *adjacency = *it;
+        Vertex *next = adjacency->getCorner()->getConvergent();
+
+        cout << " -> " << next->getValue();
+
+        if (next->getVisited()) {
+            cout << "V";
+        }
+    }
+    cout << endl;
+}
+
 bool Vertex::getVisited() {
     return this->visited;
 }

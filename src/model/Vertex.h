@@ -35,6 +35,8 @@ public:
     void createConvergentAdjacency(Vertex *toVertex);
 
     void showAdjacencies();
+
+    void showGeneratorTree();
 };
 
 #endif
