@@ -54,6 +54,42 @@ void GraphController::showAdjacencies() {
     }
 }
 
+int GraphController::treatCreateWeightOption() {
+
+    int answer = treatInput(getConsoleLine());
+
+    switch (answer) {
+        case 1:
+            cout << "Type the weight you want add: ";
+            return treatInput(getConsoleLine());
+
+        case 2:
+            return noWeight;
+
+        default:
+            cout << "Please, type a valid answer!" << endl;
+            return treatCreateWeightOption();
+    }
+}
+
+void GraphController::validateAndUpdateAllWeight(int weight) {
+
+    if (weight != noWeight && weight != invalid_option) {
+        graph->search(graph->WEIGHT);
+    }
+}
+
+int GraphController::checkWeightedGraph() {
+
+    string currentGraphType = graph->currentGraphType();
+
+    if (currentGraphType.find("weighted") != string::npos) {
+        return 0;
+    } else {
+        return noWeight;
+    }
+}
+
 void GraphController::executeAction(string option) {
 
     const int parsedOption = treatInput(option);
@@ -101,12 +137,21 @@ void GraphController::executeAction(string option) {
             int firstValue = treatInput(getConsoleLine());
             cout << "Second Vertex: ";
             int secondValue = treatInput(getConsoleLine());
+            cout << "Did you want add a weight in the corner?" << endl;
+            cout << "1- Yes" << " <==> " << "2- No" << endl;
+            int weight = treatCreateWeightOption();
 
-            if (isNotValidValue(firstValue) || isNotValidValue(secondOption)) {
-                cout << "Cannot create that connection, because one or both of values are invalids!";
+            if (isNotValidValue(firstValue) || isNotValidValue(secondOption) || isNotValidValue(weight)) {
+                cout << "Cannot create that connection, because one or more of values are invalids!";
                 break;
             }
-            graph->createCorner(firstValue, secondValue);
+
+            if (weight == noWeight) {
+                weight = checkWeightedGraph();
+            }
+
+            graph->createCorner(firstValue, secondValue, weight);
+            validateAndUpdateAllWeight(weight);
             break;
         }
 
@@ -116,14 +161,21 @@ void GraphController::executeAction(string option) {
 
             cout << endl << endl;
             cout << "Write what vertex should be created the cycle: " << endl;
-
             int value = treatInput(getConsoleLine());
+            cout << "Did you want add a weight in the corner?" << endl;
+            cout << "1- Yes" << " <==> " << "2- No" << endl;
+            int weight = treatCreateWeightOption();
 
-            if (isNotValidValue(value)) {
-                cout << "Cannot create that cycle, because the value are invalid!";
+            if (isNotValidValue(value) || isNotValidValue(weight)) {
+                cout << "Cannot create that cycle, because the value or weight are invalid!";
                 break;
             }
-            graph->createCycleCorner(value);
+            if (weight == noWeight) {
+                weight = checkWeightedGraph();
+            }
+
+            graph->createCycleCorner(value, weight);
+            validateAndUpdateAllWeight(weight);
             break;
         }
 
@@ -137,12 +189,20 @@ void GraphController::executeAction(string option) {
             int from = treatInput(getConsoleLine());
             cout << "To: ";
             int to = treatInput(getConsoleLine());
+            cout << "Did you want add a weight in the corner?" << endl;
+            cout << "1- Yes" << " <==> " << "2- No" << endl;
+            int weight = treatCreateWeightOption();
 
-            if (isNotValidValue(from) || isNotValidValue(to)) {
-                cout << "Cannot create that connection, because one or both of values are invalids!";
+            if (isNotValidValue(from) || isNotValidValue(to) || isNotValidValue(weight)) {
+                cout << "Cannot create that connection, because one or more of values are invalids!";
                 break;
             }
-            graph->createConvergentCorner(from, to);
+            if (weight == noWeight) {
+                weight = checkWeightedGraph();
+            }
+
+            graph->createConvergentCorner(from, to, weight);
+            validateAndUpdateAllWeight(weight);
             break;
         }
 
@@ -156,12 +216,20 @@ void GraphController::executeAction(string option) {
             int from = treatInput(getConsoleLine());
             cout << "To: ";
             int to = treatInput(getConsoleLine());
+            cout << "Did you want add a weight in the corner?" << endl;
+            cout << "1- Yes" << " <==> " << "2- No" << endl;
+            int weight = treatCreateWeightOption();
 
-            if (isNotValidValue(from) || isNotValidValue(to)) {
-                cout << "Cannot create that connection, because one or both of values are invalids!";
+            if (isNotValidValue(from) || isNotValidValue(to) || isNotValidValue(weight)) {
+                cout << "Cannot create that connection, because one or more of values are invalids!";
                 break;
             }
-            graph->createDivergentCorner(from, to);
+            if (weight == noWeight) {
+                weight = checkWeightedGraph();
+            }
+
+            graph->createDivergentCorner(from, to, weight);
+            validateAndUpdateAllWeight(weight);
             break;
         }
 

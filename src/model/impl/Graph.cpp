@@ -18,7 +18,7 @@ void Graph::createVertex(int value) {
     addVertex(vertex);
 }
 
-void Graph::createCorner(int firstValue, int secondValue) {
+void Graph::createCorner(int firstValue, int secondValue, int weight) {
 
     vector<Vertex *> firstVertexes = searchVertex(firstValue);
     vector<Vertex *> secondVertexes = searchVertex(secondValue);
@@ -33,8 +33,8 @@ void Graph::createCorner(int firstValue, int secondValue) {
         Vertex *firstVertex = firstVertexes.front();
         Vertex *secondVertex = secondVertexes.front();
 
-        firstVertex->createAdjacency(secondVertex);
-        secondVertex->createAdjacency(firstVertex);
+        firstVertex->createAdjacency(secondVertex, weight);
+        secondVertex->createAdjacency(firstVertex, weight);
     } else {
 
         for (vector<Vertex *>::iterator it = firstVertexes.begin(); it != firstVertexes.end(); it++) {
@@ -46,14 +46,14 @@ void Graph::createCorner(int firstValue, int secondValue) {
 
                 Vertex *secondVertex = *secondIt;
 
-                firstVertex->createAdjacency(secondVertex);
-                secondVertex->createAdjacency(firstVertex);
+                firstVertex->createAdjacency(secondVertex, weight);
+                secondVertex->createAdjacency(firstVertex, weight);
             }
         }
     }
 }
 
-void Graph::createCycleCorner(int value) {
+void Graph::createCycleCorner(int value, int weight) {
 
     vector<Vertex *> vertexes = searchVertex(value);
 
@@ -66,19 +66,19 @@ void Graph::createCycleCorner(int value) {
 
         Vertex *vertex = vertexes.front();
 
-        vertex->createCycleAdjacency(vertex);
+        vertex->createCycleAdjacency(vertex, weight);
     } else {
 
         for (vector<Vertex *>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
 
             Vertex *vertex = *it;
 
-            vertex->createCycleAdjacency(vertex);
+            vertex->createCycleAdjacency(vertex, weight);
         }
     }
 }
 
-void Graph::createConvergentCorner(int from, int to) {
+void Graph::createConvergentCorner(int from, int to, int weight) {
 
     vector<Vertex *> fromVertexes = searchVertex(from);
     vector<Vertex *> toVertexes = searchVertex(to);
@@ -93,7 +93,7 @@ void Graph::createConvergentCorner(int from, int to) {
         Vertex *fromVertex = fromVertexes.front();
         Vertex *toVertex = toVertexes.front();
 
-        fromVertex->createConvergentAdjacency(toVertex);
+        fromVertex->createConvergentAdjacency(toVertex, weight);
     } else {
 
         for (vector<Vertex *>::iterator it = fromVertexes.begin(); it != fromVertexes.end(); it++) {
@@ -104,15 +104,15 @@ void Graph::createConvergentCorner(int from, int to) {
 
                 Vertex *toVertex = *secondIt;
 
-                fromVertex->createConvergentAdjacency(toVertex);
+                fromVertex->createConvergentAdjacency(toVertex, weight);
             }
         }
     }
 }
 
-void Graph::createDivergentCorner(int from, int to) {
+void Graph::createDivergentCorner(int from, int to, int weight) {
 
-    createConvergentCorner(to, from);
+    createConvergentCorner(to, from, weight);
 }
 
 void Graph::showVertexes() {
@@ -228,6 +228,9 @@ void Graph::search(SearchType searchType) {
                 case BREADTH:
                     breadthFirstSearch(vertex);
                     break;
+
+                case WEIGHT:
+                    updateAllWeight(vertex);
             }
         }
     }
@@ -279,6 +282,22 @@ void Graph::breadthFirstSearch(Vertex *vertex) {
                 nextVertex->showGeneratorTree();
                 queue.push_back(nextVertex);
             }
+        }
+    }
+}
+
+void Graph::updateAllWeight(Vertex *vertex) {
+
+    vector<Adjacency *> adjacencies = vertex->getAdjacencies();
+
+    for (vector<Adjacency *>::iterator it = adjacencies.begin(); it != adjacencies.end(); it++) {
+
+        Adjacency *adjacency = *it;
+
+        Corner *corner = adjacency->getCorner();
+
+        if (corner->getWeight() == -1) {
+            corner->setWeight(0);
         }
     }
 }

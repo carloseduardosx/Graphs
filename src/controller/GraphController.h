@@ -10,6 +10,7 @@ class GraphController {
 
 private:
 
+    int noWeight = -2;
     int success_status = 0;
     int invalid_option = -1;
     string divider = "-------------------------------------------------";
@@ -32,6 +33,10 @@ private:
 
     int treatInput(string option);
 
+    int treatCreateWeightOption();
+
+    int checkWeightedGraph();
+
     bool isNotValidValue(int value);
 
     void executeAction(string option);
@@ -39,6 +44,8 @@ private:
     void cleanConsole();
 
     void showAdjacencies();
+
+    void validateAndUpdateAllWeight(int weight);
 
 public:
 

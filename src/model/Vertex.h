@@ -16,7 +16,7 @@ private:
     bool visited;
     vector<Adjacency *> adjacencies;
 
-    Adjacency *internalCreateAdjacency(Vertex *vertex);
+    Adjacency *internalCreateAdjacency(Vertex *vertex, int weight);
 
 public:
 
@@ -32,11 +32,11 @@ public:
 
     void addAdjacency(Adjacency *adjacency);
 
-    void createAdjacency(Vertex *next);
+    void createAdjacency(Vertex *next, int weight);
 
-    void createCycleAdjacency(Vertex *next);
+    void createCycleAdjacency(Vertex *next, int weight);
 
-    void createConvergentAdjacency(Vertex *toVertex);
+    void createConvergentAdjacency(Vertex *toVertex, int weight);
 
     void showAdjacencies();
 

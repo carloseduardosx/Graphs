@@ -19,7 +19,7 @@ private:
 public:
 
     enum SearchType {
-        DEPTH, BREADTH
+        DEPTH, BREADTH, WEIGHT
     };
 
     vector<Vertex *> getVertexes();
@@ -28,13 +28,13 @@ public:
 
     void createVertex(int value);
 
-    void createCorner(int firstValue, int secondValue);
+    void createCorner(int firstValue, int secondValue, int weight);
 
-    void createCycleCorner(int value);
+    void createCycleCorner(int value, int weight);
 
-    void createConvergentCorner(int from, int to);
+    void createConvergentCorner(int from, int to, int weight);
 
-    void createDivergentCorner(int from, int to);
+    void createDivergentCorner(int from, int to, int weight);
 
     void showVertexes();
 
@@ -45,6 +45,8 @@ public:
     void depthFirstSearch(Vertex *vertex);
 
     void breadthFirstSearch(Vertex *vertex);
+
+    void updateAllWeight(Vertex *vertex);
 };
 
 #endif
