@@ -17,13 +17,26 @@ vector<Adjacency *> Vertex::getAdjacencies() {
 
 void Vertex::createAdjacency(Vertex *next) {
 
+    addAdjacency(internalCreateAdjacency(next));
+}
+
+void Vertex::createCycleAdjacency(Vertex *next) {
+
+    Adjacency *adjacency = internalCreateAdjacency(next);
+    adjacency->getCorner()->setCycle(true);
+    addAdjacency(adjacency);
+}
+
+Adjacency *Vertex::internalCreateAdjacency(Vertex* next) {
+
     Corner *corner = new Corner();
     Adjacency *adjacency = new Adjacency();
 
     corner->setDivergent(next);
     corner->setConvergent(next);
     adjacency->setCorner(corner);
-    addAdjacency(adjacency);
+
+    return adjacency;
 }
 
 void Vertex::createConvergentAdjacency(Vertex *toVertex) {

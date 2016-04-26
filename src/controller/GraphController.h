@@ -21,9 +21,10 @@ private:
     string fifthOption = "5- Create Divergent Corner";
     string sixthOption = "6- Show Vertexes";
     string seventhOption = "7- Show adjacency lists";
-    string eightOption = "8- Depth-First Search";
-    string ninthOption = "9- Breadth-First Search";
-    string tenthOption = "10- Exit";
+    string eightOption = "8- Current graph type";
+    string ninthOption = "9- Depth-First Search";
+    string tenthOption = "10- Breadth-First Search";
+    string eleventhOption = "11- Exit";
     string selectOption = "Select a option: ";
     Graph *graph = new Graph();
 
@@ -31,11 +32,13 @@ private:
 
     int treatInput(string option);
 
+    bool isNotValidValue(int value);
+
     void executeAction(string option);
 
     void cleanConsole();
 
-    bool isNotValidValue(int value);
+    void showAdjacencies();
 
 public:
 

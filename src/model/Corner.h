@@ -7,7 +7,8 @@ class Corner {
 
 private:
 
-    int weight;
+    int weight = -1;
+    bool cycle = false;
     Vertex *divergent;
     Vertex *convergent;
 
@@ -16,6 +17,10 @@ public:
     int getWeight();
 
     void setWeight(int weight);
+
+    bool isCycle();
+
+    void setCycle(bool cycle);
 
     Vertex *getDivergent();
 

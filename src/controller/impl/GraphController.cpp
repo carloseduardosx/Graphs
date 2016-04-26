@@ -14,7 +14,8 @@ void GraphController::printOptions() {
     cout << seventhOption << endl;
     cout << eightOption << endl;
     cout << ninthOption << endl;
-    cout << tenthOption << endl << endl;
+    cout << tenthOption << endl;
+    cout << eleventhOption << endl << endl;
     cout << selectOption;
 
     executeAction(getConsoleLine());
@@ -43,6 +44,16 @@ void GraphController::cleanConsole() {
     system("clear");
 }
 
+void GraphController::showAdjacencies() {
+
+    vector<Vertex *> vertexes = graph->getVertexes();
+
+    for (vector<Vertex *>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
+        Vertex *vertex = *it;
+        vertex->showAdjacencies();
+    }
+}
+
 void GraphController::executeAction(string option) {
 
     const int parsedOption = treatInput(option);
@@ -57,6 +68,7 @@ void GraphController::executeAction(string option) {
     const int eightOption = 8;
     const int ninthOption = 9;
     const int tenthOption = 10;
+    const int eleventhOption = 11;
 
     cleanConsole();
 
@@ -64,12 +76,15 @@ void GraphController::executeAction(string option) {
 
         case firstOption: {
 
+            graph->showVertexes();
+
+            cout << endl << endl;
             cout << "Type a value to the vertex: ";
 
             int value = treatInput(getConsoleLine());
 
             if (isNotValidValue(value)) {
-                cout << "Cannot assign de value to the vertex!";
+                cout << "Cannot assign de value to the vertex!" << endl;
                 break;
             }
             graph->createVertex(value);
@@ -78,9 +93,13 @@ void GraphController::executeAction(string option) {
 
         case secondOption: {
 
-            cout << "Write what vertexes should be connected: " << endl;
+            showAdjacencies();
 
+            cout << endl << endl;
+            cout << "Write what vertexes should be connected: " << endl;
+            cout << "First Vertex: ";
             int firstValue = treatInput(getConsoleLine());
+            cout << "Second Vertex: ";
             int secondValue = treatInput(getConsoleLine());
 
             if (isNotValidValue(firstValue) || isNotValidValue(secondOption)) {
@@ -93,6 +112,9 @@ void GraphController::executeAction(string option) {
 
         case thirdOption: {
 
+            showAdjacencies();
+
+            cout << endl << endl;
             cout << "Write what vertex should be created the cycle: " << endl;
 
             int value = treatInput(getConsoleLine());
@@ -107,6 +129,9 @@ void GraphController::executeAction(string option) {
 
         case fourthOption: {
 
+            showAdjacencies();
+
+            cout << endl << endl;
             cout << "Adding convergent corner:" << endl;
             cout << "From: ";
             int from = treatInput(getConsoleLine());
@@ -122,6 +147,10 @@ void GraphController::executeAction(string option) {
         }
 
         case fifthOption: {
+
+            showAdjacencies();
+
+            cout << endl << endl;
             cout << "Adding divergent corner:" << endl;
             cout << "From: ";
             int from = treatInput(getConsoleLine());
@@ -143,26 +172,26 @@ void GraphController::executeAction(string option) {
 
         case seventhOption: {
 
-            vector<Vertex *> vertexes = graph->getVertexes();
-
-            for (vector<Vertex *>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
-                Vertex *vertex = *it;
-                vertex->showAdjacencies();
-            }
+            showAdjacencies();
             break;
         }
 
         case eightOption: {
-            graph->search(graph->DEPTH);
+            cout << graph->currentGraphType() << endl;
             break;
         }
 
         case ninthOption: {
-            graph->search(graph->BREADTH);
+            graph->search(graph->DEPTH);
             break;
         }
 
         case tenthOption: {
+            graph->search(graph->BREADTH);
+            break;
+        }
+
+        case eleventhOption: {
             exit(success_status);
         }
 
@@ -171,7 +200,6 @@ void GraphController::executeAction(string option) {
             break;
         }
     }
-
     printOptions();
 }
 

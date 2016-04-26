@@ -40,6 +40,8 @@ public:
 
     void search(SearchType searchType);
 
+    string currentGraphType();
+
     void depthFirstSearch(Vertex *vertex);
 
     void breadthFirstSearch(Vertex *vertex);

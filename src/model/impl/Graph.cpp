@@ -41,7 +41,8 @@ void Graph::createCorner(int firstValue, int secondValue) {
 
             Vertex *firstVertex = *it;
 
-            for (vector<Vertex *>::iterator secondIt = secondVertexes.begin(); secondIt != secondVertexes.end(); secondIt++) {
+            for (vector<Vertex *>::iterator secondIt = secondVertexes.begin();
+                 secondIt != secondVertexes.end(); secondIt++) {
 
                 Vertex *secondVertex = *secondIt;
 
@@ -65,14 +66,14 @@ void Graph::createCycleCorner(int value) {
 
         Vertex *vertex = vertexes.front();
 
-        vertex->createAdjacency(vertex);
+        vertex->createCycleAdjacency(vertex);
     } else {
 
         for (vector<Vertex *>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
 
             Vertex *vertex = *it;
 
-            vertex->createAdjacency(vertex);
+            vertex->createCycleAdjacency(vertex);
         }
     }
 }
@@ -141,6 +142,64 @@ vector<Vertex *> Graph::searchVertex(int value) {
     }
 
     return foundedVertexes;
+}
+
+string Graph::currentGraphType() {
+
+    int count = 0;
+    bool weighted = false;
+    bool directional = false;
+    bool pseudoGraph = false;
+    string graphTypes = "This graph is: ";
+
+    vector<Vertex *> vertexes = getVertexes();
+
+    for (vector<Vertex *>::iterator it = vertexes.begin(); it != vertexes.end(); it++) {
+
+        Vertex *vertex = *it;
+        vector<Adjacency *> adjacencies = vertex->getAdjacencies();
+
+        for (vector<Adjacency *>::iterator secondIt = adjacencies.begin(); secondIt != adjacencies.end(); secondIt++) {
+
+            Adjacency *adjacency = *secondIt;
+            Corner *corner = adjacency->getCorner();
+            Vertex *convergent = corner->getConvergent();
+            Vertex *divergent = corner->getDivergent();
+
+            if (!weighted && corner->getWeight() != -1) {
+                weighted = true;
+            }
+            if (!pseudoGraph && corner->isCycle()) {
+                pseudoGraph = true;
+            }
+            if (!directional && (convergent == nullptr || divergent == nullptr)) {
+                directional = true;
+            }
+            count++;
+        }
+    }
+
+    if (directional) {
+
+        graphTypes += " -> directional";
+    }
+    if (!directional && count != 0) {
+        graphTypes += " -> not directional";
+    }
+    if (weighted) {
+
+        graphTypes += " -> weighted";
+    }
+    if (pseudoGraph) {
+
+        graphTypes += " -> pseudoGraph";
+    }
+    if (count == 0) {
+
+        graphTypes += " -> null graph";
+    }
+
+    return graphTypes;
 }
 
 void Graph::search(SearchType searchType) {

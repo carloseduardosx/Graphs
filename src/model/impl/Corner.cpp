@@ -10,6 +10,14 @@ void Corner::setWeight(int weight) {
     this->weight = weight;
 }
 
+bool Corner::isCycle() {
+    return this->cycle;
+}
+
+void Corner::setCycle(bool cycle) {
+    this->cycle = cycle;
+}
+
 Vertex *Corner::getDivergent() {
 
     return this->divergent;
